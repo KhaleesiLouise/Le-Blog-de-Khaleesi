@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - Le monde merveilleux de Louise</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1 class="fantasy-title">Admin - Écrire un nouveau texte</h1>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="articles.html">Articles</a>
+      <a href="admin.html">Admin</a>
+      <a href="about.html">À propos</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <label for="title">Titre :</label>
+    <input type="text" id="title" placeholder="Titre du texte" />
+
+    <div id="toolbar">
+      <button type="button" onclick="document.execCommand('bold')">Gras</button>
+      <button type="button" onclick="document.execCommand('italic')">Italique</button>
+      <button type="button" onclick="document.execCommand('underline')">Souligné</button>
+    </div>
+
+    <div id="editor" contenteditable="true" aria-label="Zone d’édition"></div>
+
+    <button id="publish">Publier</button>
+  </main>
+  <footer>
+    <p>&copy; 2025 Le monde merveilleux de Louise</p>
+  </footer>
+
+  <script>
+    function slugify(text) {
+      return text.toString().toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // remove accents
+        .replace(/[^a-z0-9]+/g, '-') // replace non-alphanum with -
+        .replace(/^-+|-+$/g, ''); // trim -
+    }
+
+    document.getElementById('publish').addEventListener('click', () => {
+      const title = document.getElementById('title').value.trim();
+      const content = document.getElementById('editor').innerHTML.trim();
+
+      if (!title) return alert('Merci de saisir un titre.');
+      if (!content) return alert('Merci de saisir un contenu.');
+
+      const slug = slugify(title);
+      const filename = slug + '.html';
+
+      const articleHTML = `
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>${title}</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <h1 class="fantasy-title">${title}</h1>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="articles.html">Mes écrits</a>
+    <a href="admin.html">Admin</a>
+    <a href="about.html">À propos</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+<main>
+  ${content}
+</main>
+<footer>
+  <p>&copy; 2025 Le monde merveilleux de Louise</p>
+</footer>
+</body>
+</html>`.trim();
+
+      // Générer et télécharger le fichier HTML
+      const blob = new Blob([articleHTML], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+
+      // Sauvegarder les métadonnées dans localStorage
+      let articles = JSON.parse(localStorage.getItem('articles') || '[]');
+      if (!articles.find(article => article.slug === slug)) {
+        articles.push({ title, slug });
+        localStorage.setItem('articles', JSON.stringify(articles));
+      }
+
+      alert(`Ton article "${title}" a été généré et téléchargé. Ajoute-le dans le dossier du site.`);
+
+      // Reset form
+      document.getElementById('title').value = '';
+      document.getElementById('editor').innerHTML = '';
+    });
+  </script>
+</body>
+</html>

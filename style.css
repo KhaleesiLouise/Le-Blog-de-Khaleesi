@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+body {
+  font-family: 'MedievalSharp', cursive;
+  background: url('https://images.unsplash.com/photo-1503437313881-503a91226402?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #f5f3e7;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 3px solid #aa8f38;
+}
+
+.fantasy-title {
+  font-size: 2.5rem;
+  color: #e4d6a7;
+  text-shadow: 1px 1px 2px black;
+}
+
+nav a {
+  color: #f5f3e7;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #aa8f38;
+}
+
+main {
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.6);
+  margin: 2rem auto;
+  max-width: 800px;
+  border: 1px solid #aa8f38;
+  border-radius: 8px;
+  min-height: 400px;
+}
+
+footer {
+  background: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  border-top: 3px solid #aa8f38;
+}
+
+#editor {
+  background: #fff;
+  color: #000;
+  min-height: 250px;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #aa8f38;
+  overflow-y: auto;
+  margin-top: 1rem;
+}
+
+#toolbar button {
+  margin: 0 5px 10px 0;
+  background: #aa8f38;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+#toolbar button:hover {
+  background: #916f24;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+button#publish {
+  background: #4a90e2;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+button#publish:hover {
+  background: #357abd;
+}
